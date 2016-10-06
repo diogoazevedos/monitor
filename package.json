@@ -1,0 +1,23 @@
+{
+  "private": true,
+  "name": "monitor",
+  "version": "0.1.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/diogoazevedos/monitor.git"
+  },
+  "author": "Diogo Azevedo <diogoazevedos@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/diogoazevedos/monitor/issues"
+  },
+  "homepage": "https://github.com/diogoazevedos/monitor#readme",
+  "dependencies": {
+    "express": "4.14.0",
+    "socket.io": "1.5.0"
+  }
+}
