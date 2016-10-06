@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Monitor</title>
+</head>
+<body>
+  <div id="chart"></div>
+  <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+
+  <script>
+    const chart = new Highcharts.Chart({
+      chart: { renderTo: 'chart', type: 'spline' },
+      title: { text: 'Monitor' },
+      xAxis: { type: 'datetime' },
+      yAxis: { title: { text: 'value' } },
+      series: [{
+        name: 'Memory'
+      }]
+    })
+
+    const socket = io()
+
+    socket.on('memory usage', bytes => {
+      chart.series[0].addPoint([moment().unix(), Math.floor(bytes / 1024 / 1024)])
+    })
+  </script>
+</body>
+</html>
