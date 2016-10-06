@@ -14,20 +14,26 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
 
   <script>
-    const chart = new Highcharts.Chart({
+    window.chart = new Highcharts.Chart({
       chart: { renderTo: 'chart', type: 'spline' },
       title: { text: 'Monitor' },
       xAxis: { type: 'datetime' },
-      yAxis: { title: { text: 'value' } },
+      yAxis: { title: { text: 'Usage' } },
       series: [{
         name: 'Memory'
       }]
     })
 
     const socket = io()
+    const series = window.chart.series[0]
 
     socket.on('memory usage', bytes => {
-      chart.series[0].addPoint([moment().unix(), Math.floor(bytes / 1024 / 1024)])
+      const point = [moment().unix(), Math.floor(bytes / 1024 / 1024)]
+      if (series.data.length <= 10) {
+        series.addPoint(point)
+      } else {
+        series.addPoint(point, true, true)
+      }
     })
   </script>
 </body>
